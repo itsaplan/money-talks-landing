@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Money Talks — No more awkward money conversations in group trips</title>
+
+<!-- LinkedIn / social preview -->
+<meta property="og:title" content="Money Talks — Honest budgets for group trips">
+<meta property="og:description" content="The anonymous budget tool for group trips. Everyone says what they can truly afford — before plans get locked in. Free for your first round.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="The anonymous budget tool for group trips. Everyone says what they can truly afford — before plans get locked in. Free for your first round.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple: #7F77DD;
+    --purple-dark: #534AB7;
+    --purple-deep: #3D3595;
+    --purple-light: #EEEDFE;
+    --purple-bg: #F3F1FE;
+
+    --cream: #F5F1E8;
+    --cream-warm: #EFE9D9;
+    --ink: #1A1430;
+    --ink-soft: #4A4560;
+    --muted: #8B8699;
+    --white: #FDFCFA;
+    --border: rgba(83, 74, 183, 0.12);
+
+    --lemon: #FFF4B8;
+    --coral: #FFB8A8;
+
+    /* Green — the Money Talks trust / confirmation color */
+    --green: #34A853;
+    --green-dark: #1E7E34;
+    --green-light: #E8F5E9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.08;
+    mix-blend-mode: multiply;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+  .container {
+    margin: 0 56px;
+    max-width: 1200px;
+  }
+  @media (min-width: 1312px) {
+    .container { margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 720px) {
+    .container { margin: 0 20px; }
+  }
+
+  /* ─────────── NAV ─────────── */
+  nav {
+    padding: 22px 0;
+    margin: 0 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    position: relative;
+    z-index: 10;
+  }
+  @media (min-width: 1312px) {
+    nav { margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 720px) {
+    nav { margin: 0 20px; }
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 17px;
+    box-shadow: 0 4px 12px rgba(127, 119, 221, 0.3);
+  }
+
+  .nav-cta {
+    background: var(--ink);
+    color: var(--white);
+    padding: 11px 20px;
+    border-radius: 100px;
+    font-size: 13.5px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .nav-cta:hover {
+    background: var(--purple-dark);
+    transform: translateY(-1px);
+    color: var(--white);
+  }
+  .nav-cta .arrow { transition: transform 0.25s ease; }
+  .nav-cta:hover .arrow { transform: translateX(3px); }
+
+  /* ─────────── HERO / HEADER BLOCK ─────────── */
+  .hero {
+    padding: 40px 0 80px;
+  }
+
+  .hero-card {
+    background: var(--purple-light);
+    border-radius: 32px;
+    padding: 80px 48px 72px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(83, 74, 183, 0.04), 0 20px 40px -20px rgba(83, 74, 183, 0.12);
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    padding: 7px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--purple-dark);
+    margin-bottom: 32px;
+    animation: riseUp 0.7s ease 0.05s both;
+  }
+  .eyebrow-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--purple);
+    box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.2);
+  }
+
+  .hero-title {
+    font-size: clamp(44px, 7.5vw, 88px);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 28px;
+    animation: riseUp 0.7s ease 0.15s both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--purple-dark);
+    font-weight: 500;
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 1.4vw, 18px);
+    color: var(--ink-soft);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+    animation: riseUp 0.7s ease 0.25s both;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--white);
+    padding: 18px 32px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    animation: riseUp 0.7s ease 0.35s both;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -8px rgba(26, 20, 48, 0.4);
+    color: var(--white);
+  }
+  .btn-primary .arrow { transition: transform 0.25s ease; }
+  .btn-primary:hover .arrow { transform: translateX(4px); }
+
+  .hero-note {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--muted);
+    animation: riseUp 0.7s ease 0.45s both;
+  }
+
+  /* Hero visual — the central result card illustration */
+  .hero-visual {
+    margin: 56px auto 0;
+    max-width: 440px;
+    position: relative;
+    animation: riseUp 0.8s ease 0.55s both;
+  }
+
+  .result-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 1px 2px rgba(83,74,183,0.06), 0 20px 50px -15px rgba(83, 74, 183, 0.25);
+    text-align: left;
+    position: relative;
+    z-index: 2;
+    transform: rotate(-1.5deg);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .result-card:hover { transform: rotate(0deg) translateY(-4px); }
+
+  .rc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .rc-trip {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .rc-meta {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .rc-chip {
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--purple-light);
+    color: var(--purple-dark);
+    padding: 5px 10px;
+    border-radius: 100px;
+  }
+
+  .bar-row { margin-bottom: 14px; }
+  .bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  .bar-track {
+    height: 10px;
+    background: var(--purple-bg);
+    border-radius: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-fill {
+    position: absolute;
+    height: 100%;
+    border-radius: 100px;
+    background: var(--purple-dim, #B8B2EA);
+  }
+  .bar-fill.comfort {
+    background: var(--green);
+  }
+
+  .rc-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--border);
+  }
+  .stat-item { text-align: center; }
+  .stat-val {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .stat-val.accent { color: var(--green-dark); }
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* Floating tags around the card */
+  .float-tag {
+    position: absolute;
+    background: var(--white);
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    box-shadow: 0 6px 20px -5px rgba(83, 74, 183, 0.2);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .float-tag.tl {
+    top: -14px; left: -10px;
+    transform: rotate(-4deg);
+    animation: floatA 4s ease-in-out infinite;
+  }
+  .float-tag.br {
+    bottom: 20px; right: -14px;
+    transform: rotate(3deg);
+    animation: floatB 5s ease-in-out infinite;
+  }
+  .float-tag .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #3FBF6E;
+  }
+
+  @keyframes floatA {
+    0%,100% { transform: rotate(-4deg) translateY(0); }
+    50% { transform: rotate(-4deg) translateY(-6px); }
+  }
+  @keyframes floatB {
+    0%,100% { transform: rotate(3deg) translateY(0); }
+    50% { transform: rotate(3deg) translateY(-8px); }
+  }
+
+  @keyframes riseUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─────────── SHARED SECTION STYLES ─────────── */
+  .section {
+    padding: 40px 0 80px;
+  }
+
+  .section-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--purple-dark);
+    margin-bottom: 18px;
+  }
+
+  .section-title {
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 400;
+    max-width: 740px;
+    margin-bottom: 18px;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--purple-dark);
+  }
+
+  .section-lead {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin-bottom: 48px;
+  }
+
+  /* ─────────── PROBLEM ─────────── */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 860px) {
+    .problem-grid { grid-template-columns: 1fr; }
+  }
+
+  .problem-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 32px 28px 28px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .problem-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -15px rgba(83, 74, 183, 0.12);
+  }
+
+  .problem-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--purple-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  .problem-card:nth-child(2) .problem-icon { background: var(--lemon); }
+  .problem-card:nth-child(3) .problem-icon { background: var(--coral); }
+
+  .problem-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .problem-card p {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ─────────── HOW IT WORKS ─────────── */
+  .how {
+    padding: 80px 0;
+    background: var(--purple-light);
+    border-radius: 40px;
+    margin: 0 56px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 720px) {
+    .how { margin: 0 20px 80px; }
+  }
+  .how-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  @media (max-width: 860px) { .steps-grid { grid-template-columns: 1fr; } }
+
+  .step-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 32px 28px;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  .step-card:hover { transform: translateY(-4px); }
+
+  .step-num {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--purple);
+    background: var(--purple-light);
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .step-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .step-card p {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .step-visual {
+    margin-top: 20px;
+    padding: 14px;
+    background: var(--purple-bg);
+    border-radius: 12px;
+    font-size: 12.5px;
+    color: var(--purple-dark);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ─────────── PROMISE ─────────── */
+  .promise {
+    padding: 40px 0 80px;
+  }
+
+  .promise-card {
+    background: var(--purple);
+    border-radius: 32px;
+    padding: 56px 48px;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .promise-card::before {
+    content: '';
+    position: absolute;
+    right: -120px; top: -120px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .promise-card::after {
+    content: '';
+    position: absolute;
+    left: -100px; bottom: -140px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .promise-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .promise-inner { grid-template-columns: 1fr; gap: 32px; }
+    .promise-card { padding: 44px 32px; }
+  }
+
+  .promise-title {
+    font-size: clamp(34px, 4.5vw, 46px);
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .promise-title em { font-style: italic; color: var(--lemon); }
+
+  .promise-text {
+    font-size: 15.5px;
+    opacity: 0.92;
+    line-height: 1.6;
+  }
+
+  .promise-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .promise-list li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--white);
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .promise-list li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(3px);
+  }
+  .promise-list .check {
+    width: 32px; height: 32px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--purple-dark);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  /* ─────────── AUDIENCE ─────────── */
+  .aud-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 980px) { .aud-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .aud-grid { grid-template-columns: 1fr; } }
+
+  .aud-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 28px 22px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .aud-card:hover {
+    background: var(--green);
+    color: var(--white);
+    border-color: var(--green);
+    transform: translateY(-3px);
+  }
+  .aud-emoji {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+  .aud-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .aud-card p {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    transition: color 0.3s ease;
+  }
+  .aud-card:hover p { color: rgba(255,255,255,0.85); }
+
+  /* Not-for disqualifier */
+  .not-for {
+    background: var(--cream-warm);
+    border-radius: 20px;
+    padding: 24px 28px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    border: 1px dashed rgba(83, 74, 183, 0.2);
+  }
+  .not-for-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    line-height: 1;
+    padding-top: 2px;
+  }
+  .not-for-text {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .not-for-text strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ─────────── WRAP UP / FINAL CTA ─────────── */
+  .wrap-up {
+    background: var(--green);
+    color: var(--white);
+    border-radius: 40px;
+    padding: 80px 48px;
+    text-align: center;
+    margin: 0 56px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (min-width: 1312px) {
+    .wrap-up { margin-left: auto; margin-right: auto; max-width: 1200px; }
+  }
+  @media (max-width: 720px) {
+    .wrap-up { margin: 0 20px 60px; }
+  }
+  .wrap-up::before {
+    content: '';
+    position: absolute;
+    top: -180px; left: -120px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .wrap-up::after {
+    content: '';
+    position: absolute;
+    bottom: -200px; right: -140px;
+    width: 460px; height: 460px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .wrap-up h2 {
+    font-size: clamp(38px, 6vw, 64px);
+    font-weight: 400;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .wrap-up h2 em {
+    font-style: italic;
+    color: var(--green-light);
+  }
+  .wrap-up p {
+    font-size: 17px;
+    opacity: 0.9;
+    max-width: 540px;
+    margin: 0 auto 36px;
+    position: relative;
+  }
+  .wrap-up .btn-primary {
+    background: var(--white);
+    color: var(--green-dark);
+    position: relative;
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .wrap-up .btn-primary:hover {
+    background: var(--green-light);
+    color: var(--green-dark);
+    box-shadow: 0 12px 28px -8px rgba(30, 126, 52, 0.4);
+  }
+  .wrap-up-note {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-top: 20px;
+    position: relative;
+  }
+
+  /* ─────────── FOOTER ─────────── */
+  footer {
+    padding: 40px 0 60px;
+    margin: 0 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    font-size: 13px;
+    color: var(--muted);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  @media (min-width: 1312px) {
+    footer { margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 720px) {
+    footer { margin: 0 20px; padding: 40px 0 60px; }
+  }
+
+  /* ─────────── SCROLL REVEAL ─────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ═══════════════════════════════════════
+     RESPONSIVE — consolidated breakpoints
+     ═══════════════════════════════════════ */
+
+  /* ── TABLET & below (≤1080px) ── */
+  @media (max-width: 1080px) {
+    .hero-card { padding: 64px 36px 56px; }
+    .how { padding: 64px 0; }
+    .how-inner { padding: 0 24px; }
+    .promise-card { padding: 48px 36px; }
+    .promise-inner { gap: 40px; }
+    .wrap-up { padding: 72px 36px; }
+  }
+
+  /* ── SMALL TABLET / LARGE MOBILE (≤720px) ── */
+  @media (max-width: 720px) {
+    /* Hide nav CTA — hero has its own, no need to duplicate in top bar */
+    .nav-cta { display: none; }
+    .logo { font-size: 19px; }
+    .logo-mark { width: 28px; height: 28px; font-size: 15px; border-radius: 9px; }
+
+    /* Hero */
+    .hero { padding: 24px 0 56px; }
+    .hero-card {
+      padding: 48px 24px 48px;
+      border-radius: 24px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      padding: 6px 12px;
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+    .hero-title {
+      font-size: clamp(36px, 10vw, 52px);
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+    .btn-primary {
+      padding: 15px 26px;
+      font-size: 15px;
+      width: 100%;
+      justify-content: center;
+      max-width: 320px;
+    }
+    .hero-note {
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    /* Hero visual card */
+    .hero-visual { margin-top: 44px; }
+    .result-card {
+      padding: 20px;
+      transform: rotate(0deg); /* remove rotation to avoid overflow */
+      border-radius: 18px;
+    }
+    .rc-trip { font-size: 18px; }
+    .stat-val { font-size: 20px; }
+    .float-tag {
+      font-size: 11px;
+      padding: 8px 12px;
+    }
+    .float-tag.tl { top: -12px; left: 50%; transform: translateX(-50%) rotate(-3deg); }
+    .float-tag.br { bottom: -14px; right: 50%; transform: translateX(50%) rotate(3deg); }
+
+    /* Section titles & leads */
+    .section { padding: 24px 0 56px; }
+    .section-title {
+      font-size: clamp(28px, 7vw, 38px);
+      margin-bottom: 14px;
+    }
+    .section-lead {
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    /* Problem cards */
+    .problem-grid { gap: 14px; }
+    .problem-card { padding: 26px 22px 24px; border-radius: 20px; }
+    .problem-card h3 { font-size: 20px; }
+    .problem-card p { font-size: 14px; }
+
+    /* How it works */
+    .how {
+      padding: 56px 0;
+      border-radius: 28px;
+    }
+    .how-inner { padding: 0 20px; }
+    .steps-grid { gap: 14px; margin-top: 32px; }
+    .step-card { padding: 26px 22px; border-radius: 20px; }
+    .step-card h3 { font-size: 20px; }
+    .step-card p { font-size: 14px; }
+    .step-visual { font-size: 12px; padding: 12px; }
+
+    /* Promise */
+    .promise { padding: 24px 0 56px; }
+    .promise-card {
+      padding: 40px 28px;
+      border-radius: 28px;
+    }
+    .promise-inner { gap: 28px; }
+    .promise-title { font-size: clamp(28px, 7vw, 36px); }
+    .promise-list li { padding: 14px 16px; font-size: 14px; }
+    .promise-list .check { width: 28px; height: 28px; font-size: 12px; }
+
+    /* Audience */
+    .aud-grid { gap: 12px; margin-top: 32px; margin-bottom: 24px; }
+    .aud-card { padding: 22px 18px; border-radius: 18px; }
+    .aud-emoji { font-size: 24px; margin-bottom: 10px; }
+    .aud-card h4 { font-size: 17px; }
+    .aud-card p { font-size: 13px; }
+    .not-for { padding: 20px 22px; }
+    .not-for-text { font-size: 14px; }
+
+    /* Wrap-up */
+    .wrap-up {
+      padding: 56px 24px;
+      border-radius: 28px;
+    }
+    .wrap-up h2 {
+      font-size: clamp(32px, 8vw, 44px);
+      margin-bottom: 16px;
+    }
+    .wrap-up p {
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+    .wrap-up .btn-primary {
+      padding: 15px 26px;
+      font-size: 15px;
+    }
+
+    /* Footer */
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12.5px;
+    }
+  }
+
+  /* ── NARROW MOBILE (≤420px) ── */
+  @media (max-width: 420px) {
+    .hero-card { padding: 40px 20px 40px; }
+    .hero-title { font-size: clamp(32px, 10vw, 44px); }
+    .hero-eyebrow {
+      font-size: 10.5px;
+      padding: 5px 11px;
+    }
+    .hero-eyebrow .eyebrow-dot { display: none; }
+    .btn-primary { padding: 14px 22px; font-size: 14.5px; }
+    .section-title { font-size: clamp(26px, 7.5vw, 34px); }
+    .promise-title { font-size: clamp(26px, 7.5vw, 32px); }
+    .wrap-up h2 { font-size: clamp(28px, 8.5vw, 40px); }
+    .rc-top { flex-wrap: wrap; gap: 8px; }
+    .float-tag { font-size: 10.5px; padding: 7px 11px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    Money Talks
+  </div>
+  <a href="YOUR_TALLY_LINK_HERE" target="_blank" rel="noopener" class="nav-cta">
+    <span class="cta-long">Try Money Talks</span><span class="cta-short" style="display:none;">Try it</span>
+    <span class="arrow">→</span>
+  </a>
+</nav>
+
+<!-- HERO / HEADER -->
+<section class="container hero">
+  <div class="hero-card">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Got a group trip, birthday or celebration coming up?
+    </div>
+    <h1 class="hero-title">
+      No more awkward<br><em>Money Talks</em> 💸
+    </h1>
+    <p class="hero-sub">
+      Send one link to your group. Everyone shares their budget anonymously. You get back a clear range everyone can say yes to.
+    </p>
+    <a href="YOUR_TALLY_LINK_HERE" target="_blank" rel="noopener" class="btn-primary">
+      Try it
+      <span class="arrow">→</span>
+    </a>
+    <div class="hero-note">No account needed · 60-second setup · Totally free</div>
+
+    <div class="hero-visual">
+      <div class="float-tag tl">
+        <span class="dot"></span>
+        8/8 responded
+      </div>
+
+      <div class="result-card">
+        <div class="rc-top">
+          <div>
+            <div class="rc-trip">Sara's 30th 🎉</div>
+            <div class="rc-meta">Birthday · 8 people</div>
+          </div>
+          <div class="rc-chip">Complete</div>
+        </div>
+
+        <div class="bar-row">
+          <div class="bar-label"><span>Full range</span><span>€220–€550</span></div>
+          <div class="bar-track"><div class="bar-fill" style="left:0;width:100%;"></div></div>
+        </div>
+
+        <div class="bar-row">
+          <div class="bar-label"><span>Comfortable zone</span><span>€300–€400</span></div>
+          <div class="bar-track"><div class="bar-fill comfort" style="left:24%;width:31%;"></div></div>
+        </div>
+
+        <div class="rc-stats">
+          <div class="stat-item">
+            <div class="stat-val">€220</div>
+            <div class="stat-lbl">Min</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val accent">€350</div>
+            <div class="stat-lbl">Sweet spot</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val">€550</div>
+            <div class="stat-lbl">Max</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-tag br">🔒 Fully anonymous</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="container section">
+  <p class="section-eyebrow reveal">The problem</p>
+  <h2 class="section-title reveal">The hardest part of planning something together isn't the logistics. <em>It's the budget.</em></h2>
+  <p class="section-lead reveal">Some people stretch their budget and don't say so. Others hold back from suggesting somewhere cheaper. The budget conversation never really happens — and the trip, the dinner, or the weekend ends up being tense for reasons nobody names.</p>
+
+  <div class="problem-grid">
+    <div class="problem-card reveal">
+      <div class="problem-icon">🤐</div>
+      <h3>The silence</h3>
+      <p>Nobody wants to be the one who says "that's too much for me." So the group defaults to whoever spoke first — usually the highest spender.</p>
+    </div>
+    <div class="problem-card reveal">
+      <div class="problem-icon">💸</div>
+      <h3>The overspend</h3>
+      <p>Plans get locked in before budgets get aligned. Someone ends up putting it on a credit card and quietly resenting the whole thing for months.</p>
+    </div>
+    <div class="problem-card reveal">
+      <div class="problem-icon">💔</div>
+      <h3>The group chat goes quiet</h3>
+      <p>Someone pulls out last minute. Another stops replying in the group chat. Years of closeness quietly bruised over a €50 gap nobody felt safe naming out loud.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="how-inner">
+    <p class="section-eyebrow reveal">How it works</p>
+    <h2 class="section-title reveal">Three steps. <em>Zero awkwardness.</em></h2>
+    <p class="section-lead reveal">No signups. No app downloads. You run a round in under a minute — everyone else just answers one honest question.</p>
+
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">1</div>
+        <h3>You start a round</h3>
+        <p>Name the trip, pick a budget category, and get a shareable link to send to your group. Done in 60 seconds — no account required.</p>
+        <div class="step-visual">
+          ⚡ "Sara's 30th" created · 8 people
+        </div>
+      </div>
+
+      <div class="step-card reveal">
+        <div class="step-num">2</div>
+        <h3>Everyone answers privately</h3>
+        <p>Your group submits their number anonymously. Nobody sees who said what — not even you, as the organiser. Ever.</p>
+        <div class="step-visual">
+          🔒 Each number stays locked, always
+        </div>
+      </div>
+
+      <div class="step-card reveal">
+        <div class="step-num">3</div>
+        <h3>You get the honest range</h3>
+        <p>A beautiful summary card with the full range, comfortable zone, and the sweet spot where everyone can say yes.</p>
+        <div class="step-visual">
+          📊 Range · Median · Comfortable zone
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANONYMITY PROMISE -->
+<section class="container promise">
+  <div class="promise-card reveal">
+    <div class="promise-inner">
+      <div>
+        <h3 class="promise-title">Anonymous means<br><em>actually anonymous.</em></h3>
+      </div>
+
+      <ul class="promise-list">
+        <li>
+          <span class="check">✓</span>
+          No individual answers shared, ever
+        </li>
+        <li>
+          <span class="check">✓</span>
+          No accounts required for your group
+        </li>
+        <li>
+          <span class="check">✓</span>
+          One link, one number, 30 seconds to answer
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="container section">
+  <p class="section-eyebrow reveal">Who it's for</p>
+  <h2 class="section-title reveal">Built for the moments <em>that actually matter.</em></h2>
+  <p class="section-lead reveal">Any time money needs to be figured out before plans get locked in — with people you don't want to lose over a budget misread.</p>
+
+  <div class="aud-grid">
+    <div class="aud-card reveal">
+      <div class="aud-emoji">👯</div>
+      <h4>Bachelorette</h4>
+      <p>Eight people, three continents of wishlists, zero honest budget talks — until now.</p>
+    </div>
+    <div class="aud-card reveal">
+      <div class="aud-emoji">🏖️</div>
+      <h4>Trip with friends</h4>
+      <p>The group trip that almost never happens because nobody wants to push first.</p>
+    </div>
+    <div class="aud-card reveal">
+      <div class="aud-emoji">🎂</div>
+      <h4>Birthday celebration</h4>
+      <p>Surprise weekend, group gift, dinner out — all the things nobody agrees on out loud.</p>
+    </div>
+    <div class="aud-card reveal">
+      <div class="aud-emoji">🌴</div>
+      <h4>Holiday with family</h4>
+      <p>Different life stages, different budgets, one shared week. Align before booking.</p>
+    </div>
+  </div>
+
+  <div class="not-for reveal">
+    <div class="not-for-icon">👋</div>
+    <div class="not-for-text">
+      <strong>Not what you're looking for?</strong> Money Talks isn't for splitting bills after the fact — it's for aligning budgets <em>before</em> plans are locked in. If you need to settle who owes who for last night's dinner, you're looking for Splitwise, not this.
+    </div>
+  </div>
+</section>
+
+<!-- WRAP UP -->
+<section class="wrap-up" id="cta">
+  <h2>Got a group plan in mind?<br><em>Start the round.</em></h2>
+  <p>Your group answers anonymously. You get back a clear budget to plan with. 60 seconds, no accounts.</p>
+  <a href="YOUR_TALLY_LINK_HERE" target="_blank" rel="noopener" class="btn-primary">
+    Try it now
+    <span class="arrow">→</span>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo" style="font-size:18px;">
+    Money Talks
+  </div>
+  <div>Agree on the budget without awkwardness</div>
+  <div>© 2026 Money Talks</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
